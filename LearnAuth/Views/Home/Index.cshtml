@@ -5,4 +5,18 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p>Hii @User.Identity.Name !!</p>
+    }
+</div>
+
+@*injectig authorization service*@
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService authorizationService
+<div class="text-center">
+    @if ((await authorizationService.AuthorizeAsync(User, "Claim.Dob")).Succeeded)
+    {
+        <p>@User.Identity.Name has Dob claim</p>
+    }
 </div>
