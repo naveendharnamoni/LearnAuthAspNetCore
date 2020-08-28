@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnAuth.Basics", "LearnAuth\LearnAuth.Basics.csproj", "{3DEDCDD9-86B6-4208-B6E3-110B62C7E587}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnAuth.Basics", "LearnAuth\LearnAuth.Basics.csproj", "{3DEDCDD9-86B6-4208-B6E3-110B62C7E587}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnAuth.Identity", "LearnAuth.Identity\LearnAuth.Identity.csproj", "{01647F74-D773-45BD-B935-AB25F6A09779}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnAuth.Identity", "LearnAuth.Identity\LearnAuth.Identity.csproj", "{01647F74-D773-45BD-B935-AB25F6A09779}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basics", "Basics", "{6B4BD4E1-BA2B-4915-BCF5-630A887D3A0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OAuth", "OAuth", "{7E3A7DFD-B845-48C9-AFAF-6AF9FBED8BE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnAuth.OAuthServer", "LearnAuth.OAuthServer\LearnAuth.OAuthServer.csproj", "{1517EE98-E280-422E-9225-B5D5B923A281}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +27,18 @@ Global
 		{01647F74-D773-45BD-B935-AB25F6A09779}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01647F74-D773-45BD-B935-AB25F6A09779}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01647F74-D773-45BD-B935-AB25F6A09779}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1517EE98-E280-422E-9225-B5D5B923A281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1517EE98-E280-422E-9225-B5D5B923A281}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1517EE98-E280-422E-9225-B5D5B923A281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1517EE98-E280-422E-9225-B5D5B923A281}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3DEDCDD9-86B6-4208-B6E3-110B62C7E587} = {6B4BD4E1-BA2B-4915-BCF5-630A887D3A0E}
+		{01647F74-D773-45BD-B935-AB25F6A09779} = {6B4BD4E1-BA2B-4915-BCF5-630A887D3A0E}
+		{1517EE98-E280-422E-9225-B5D5B923A281} = {7E3A7DFD-B845-48C9-AFAF-6AF9FBED8BE1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E1340202-2B7A-46C9-99D3-01F07EE77BF1}
