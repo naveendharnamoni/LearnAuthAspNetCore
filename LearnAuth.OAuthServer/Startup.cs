@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +10,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 namespace LearnAuth.OAuthServer
 {
@@ -25,7 +28,31 @@ namespace LearnAuth.OAuthServer
         {
             services.AddControllersWithViews();
 
-            services.AddAuthentication();
+            services.AddAuthentication("oauth")
+                .AddJwtBearer("oauth", config => {
+
+                    var secretBytes = Encoding.ASCII.GetBytes(Constants.key);
+                    var key = new SymmetricSecurityKey(secretBytes);
+
+                    config.Events = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents()
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            if (context.Request.Query.ContainsKey("access_token"))
+                            {
+                                context.Token = context.Request.Query["access_token"];
+                            }
+                            return Task.CompletedTask;
+                        }
+                    };
+
+                    config.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        IssuerSigningKey = key,
+                        ValidIssuer = Constants.Issuer,
+                        ValidAudience = Constants.Audience
+                    };
+                });
                 
         }
 

@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using LearnAuth.OAuthServer.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace LearnAuth.OAuthServer.Controllers
 {
@@ -32,7 +36,25 @@ namespace LearnAuth.OAuthServer.Controllers
 
         public IActionResult Authenticate()
         {
-            return RedirectToAction("Index");
+            var claims = new []
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, "dummy_id"),
+                new Claim(JwtRegisteredClaimNames.Email, "bob@gmail.com"),
+                new Claim(JwtRegisteredClaimNames.UniqueName, "bob"),
+            };
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(Constants.key);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Issuer = Constants.Issuer,
+                Audience = Constants.Audience,
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddHours(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenJson = tokenHandler.WriteToken(token);
+            return Ok(new { access_token = tokenJson });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
